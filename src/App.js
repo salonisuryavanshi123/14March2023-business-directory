@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+//1. Import Area
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Layout from './components/ui/Layout'
+import Detail from './pages/Detail'
+import Home from './pages/Home'
+import Login from './pages/login'
+import Register from './pages/register'
 
-function App() {
+//2. Defination Area
+export default function App() {
+    //2.1  Hooks Area
+
+    //2.2 Function Defination Area
+
+    //2.3 Return Statement
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Home />}></Route>
+                <Route path="login" element={<Login />}></Route>
+                <Route path="register" element={<Register />}></Route>
+                <Route path="detail" element={<Detail />}></Route>
+            </Route>
+        </Routes>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+//3. Export Area
