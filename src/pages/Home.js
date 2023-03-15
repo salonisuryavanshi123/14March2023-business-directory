@@ -1,8 +1,6 @@
 //1. Import Area
 import React, { useEffect, useState } from 'react'
-import { Container, Nav } from 'react-bootstrap'
-import Footer from '../components/ui/Footer'
-import Header from '../components/ui/Header'
+
 
 //2. Defination Area
 export default function Home() {

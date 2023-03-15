@@ -5,7 +5,6 @@ export default function Header() {
     return (
         <>
             <header>
-                Header
                 <Navigation />
             </header>
         </>

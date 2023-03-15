@@ -6,6 +6,7 @@ import { Button, Form } from 'react-bootstrap'
 export default function Login() {
     return (
         <>
+            <h1 className='text-center mt-3'>Login Page</h1>
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
