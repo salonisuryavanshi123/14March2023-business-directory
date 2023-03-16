@@ -4,6 +4,46 @@ import { Button, Form } from 'react-bootstrap'
 
 //2. Defination Area
 export default function Login() {
+    //2.1 Hook Area
+
+    //2.2 Function Defination Area
+    let myLogin = ()=>{
+        //alert('Hello');
+
+        let payload = {
+            "identifier": document.querySelector('input[type=email]').value,
+            "password": document.querySelector('input[type=password]').value
+          }
+          console.log(payload);
+
+          fetch(`http://localhost:1337/api/auth/local`,{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(payload)
+          })
+          .then(res=>res.json())
+          .then((data)=>{
+            if(data["jwt"] !== undefined){
+                console.log('token ------>' ,data["jwt"]);
+                alert('Welcome');
+                window.location.href = '/business_register';
+
+                //Store the token in LocalStorage
+                window.localStorage.setItem('jwt_token',data["jwt"])
+            }else{
+                alert('Get Out');
+            }
+            console.log(data);
+          })
+          .catch(err=>err);
+
+
+    }
+
+
+    //2.3 Return Statement
     return (
         <>
             <h1 className='text-center mt-3'>Login Page</h1>
@@ -12,7 +52,6 @@ export default function Login() {
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" />
                     <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
                     </Form.Text>
                 </Form.Group>
 
@@ -23,7 +62,7 @@ export default function Login() {
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="button" onClick={()=>{myLogin()}}>
                     Submit
                 </Button>
             </Form>
