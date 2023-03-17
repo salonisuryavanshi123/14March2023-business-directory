@@ -1,6 +1,7 @@
 //1. Import Area
 import React from 'react'
 import { Button, Form } from 'react-bootstrap'
+import { URL } from '../components/helpers/url';
 
 //2. Defination Area
 export default function Login() {
@@ -16,7 +17,7 @@ export default function Login() {
           }
           console.log(payload);
 
-          fetch(`http://localhost:1337/api/auth/local`,{
+          fetch(`${URL}/api/auth/local`,{
             method:"POST",
             headers:{
                 'Content-Type':'application/json'
