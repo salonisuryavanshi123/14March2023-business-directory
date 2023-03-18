@@ -7,6 +7,8 @@ import { URL } from '../components/helpers/url';
 //2. Defination Area
 export default function BusinessRegister() {
     //2.1 Hooks Area
+    const [countries,setCountries] = useState([]);
+    const [states,setStates] = useState([]);
     const [cities,setCities] = useState([]);
     const [businessCategories,setBusinessCategories] = useState([]);
     
@@ -20,6 +22,32 @@ export default function BusinessRegister() {
         .then((cityData)=>{
             console.log('City ------>>',cityData.data);
             setCities(cityData.data);
+        })
+        .catch((err)=>{
+            return err;
+        });
+
+        //Call the Country Api
+        fetch(`${URL}/api/countries`,{})
+        .then((res)=>{
+            return res.json()
+        })
+        .then((countryData)=>{
+            console.log('Country ------>>',countryData.data);
+            setCountries(countryData.data);
+        })
+        .catch((err)=>{
+            return err;
+        });
+
+        //Call the State Api
+        fetch(`${URL}/api/states`,{})
+        .then((res)=>{
+            return res.json()
+        })
+        .then((stateData)=>{
+            console.log('State ------>>',stateData.data);
+            setStates(stateData.data);
         })
         .catch((err)=>{
             return err;
@@ -77,6 +105,37 @@ export default function BusinessRegister() {
         });
     }
     
+    let getStates = (e)=>{
+        //alert('okokok')
+        console.log(e.target.value);
+        let country_id = e.target.value
+
+        //Get the States from country id
+        fetch(`${URL}/api/states?filters[country][id][$eq]=${country_id}&populate=*`,{})
+        .then(res=>res.json())
+        .then((stateData)=>{
+            console.log('States ----->>',stateData.data);
+            setStates(stateData.data);
+        })
+        .catch(err=>err);
+
+    }
+
+    let getCities = (e)=>{
+        console.log(e.target.value);
+        let state_id = e.target.value
+
+        //Get the Cities from state id
+        fetch(`${URL}/api/cities?filters[state][id][$eq]=${state_id}&populate=*`,{})
+        .then(res=>res.json())
+        .then((cityData)=>{
+            console.log(' ----->>',cityData.data);
+            setCities(cityData.data);
+        })
+        .catch(err=>err);
+
+    }
+    
     //2.3 Return Statement
     return (
         <>
@@ -84,6 +143,28 @@ export default function BusinessRegister() {
             {/* {console.log('set City ---->>',cities)} */}
             <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Country</Form.Label>
+                    <Form.Select name='country_id' aria-label="Default select example" onChange={(e)=>{ getStates(e) }}>
+                        {
+                            countries.map((cv,idx,arr)=>{
+                                return <option key={idx} value={cv.id}>{cv.attributes.name}</option>
+                            })
+                        }
+                        
+                        </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>State</Form.Label>
+                    <Form.Select name='state_id' aria-label="Default select example" onChange={(e)=>{ getCities(e) }}>
+                        {
+                            states.map((cv,idx,arr)=>{
+                                return <option key={idx} value={cv.id}>{cv.attributes.name}</option>
+                            })
+                        }
+                        
+                        </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>City</Form.Label>
                     <Form.Select name='city_id' aria-label="Default select example">
                         {
@@ -117,4 +198,5 @@ export default function BusinessRegister() {
             </Form>
         </>
     )
-}
+ }   
+                    

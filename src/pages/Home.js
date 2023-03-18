@@ -1,5 +1,6 @@
 //1. Import Area
 import React, { useEffect, useState } from 'react'
+import { URL } from '../components/helpers/url';
 
 
 //2. Defination Area
@@ -9,7 +10,7 @@ export default function Home() {
 
 
     useEffect(()=>{
-        fetch(`http://localhost:1337/api/business-categories?populate=*`)
+        fetch(`${URL}/api/business-categories?populate=*`)
         .then((res)=>{
             return res.json()
         })
@@ -38,9 +39,12 @@ export default function Home() {
                                     </a>
                                 </li>
                     })
+                    
                 }
                 
+                
             </ul>
+        
         </>
     )
 }
