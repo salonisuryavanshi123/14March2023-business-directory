@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import swal from 'sweetalert';
-import { URL } from '../components/helpers/url';
+import { URL } from '../components/helpers/helper';
 
 //2. Defination Area
 export default function BusinessRegister() {
@@ -15,17 +15,17 @@ export default function BusinessRegister() {
 
     useEffect(()=>{
         //Call the City Api
-        fetch(`${URL}/api/cities`,{})
-        .then((res)=>{
-            return res.json()
-        })
-        .then((cityData)=>{
-            console.log('City ------>>',cityData.data);
-            setCities(cityData.data);
-        })
-        .catch((err)=>{
-            return err;
-        });
+        // fetch(`${URL}/api/cities`,{})
+        // .then((res)=>{
+        //     return res.json()
+        // })
+        // .then((cityData)=>{
+        //     console.log('City ------>>',cityData.data);
+        //     setCities(cityData.data);
+        // })
+        // .catch((err)=>{
+        //     return err;
+        // });
 
         //Call the Country Api
         fetch(`${URL}/api/countries`,{})
@@ -41,17 +41,17 @@ export default function BusinessRegister() {
         });
 
         //Call the State Api
-        fetch(`${URL}/api/states`,{})
-        .then((res)=>{
-            return res.json()
-        })
-        .then((stateData)=>{
-            console.log('State ------>>',stateData.data);
-            setStates(stateData.data);
-        })
-        .catch((err)=>{
-            return err;
-        });
+        // fetch(`${URL}/api/states`,{})
+        // .then((res)=>{
+        //     return res.json()
+        // })
+        // .then((stateData)=>{
+        //     console.log('State ------>>',stateData.data);
+        //     setStates(stateData.data);
+        // })
+        // .catch((err)=>{
+        //     return err;
+        // });
 
 
         //Call the Business Category Api
@@ -85,11 +85,14 @@ export default function BusinessRegister() {
                         }
                       };
 
+        //Get the Token from localStorage
+        let token = window.localStorage.getItem('jwt_token')
         //Call the Api
         fetch(`${URL}/api/businesses`,{
             method:"POST",
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+token  //concatination
             },
             body:JSON.stringify(payload)
         })
@@ -98,7 +101,12 @@ export default function BusinessRegister() {
         })
         .then((data)=>{
             console.log(data);
-            swal("Good job!", "Business Register Sucessfully!", "success");
+            if(data["data"] === null){
+                swal("Error!",`${data.error.message}`, "error"); 
+            }else{
+                
+                swal("Good job!", "Business Register Sucessfully!", "success");
+            }
         })
         .catch((err)=>{
             return err
@@ -153,7 +161,9 @@ export default function BusinessRegister() {
                         
                         </Form.Select>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                {
+                    states.length !== 0 &&
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>State</Form.Label>
                     <Form.Select name='state_id' aria-label="Default select example" onChange={(e)=>{ getCities(e) }}>
                         {
@@ -164,7 +174,10 @@ export default function BusinessRegister() {
                         
                         </Form.Select>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                }
+                {
+                    cities.length !==0 &&
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>City</Form.Label>
                     <Form.Select name='city_id' aria-label="Default select example">
                         {
@@ -174,7 +187,10 @@ export default function BusinessRegister() {
                         }
                         
                         </Form.Select>
-                </Form.Group>
+                    </Form.Group>
+                }
+                
+                
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Business Category</Form.Label>
                     <Form.Select name='bus_cat_id' aria-label="Default select example">

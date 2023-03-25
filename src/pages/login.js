@@ -1,7 +1,7 @@
 //1. Import Area
 import React from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { URL } from '../components/helpers/url';
+import { URL } from '../components/helpers/helper';
 
 //2. Defination Area
 export default function Login() {

@@ -7,6 +7,7 @@ import Detail from './pages/Detail'
 import Home from './pages/Home'
 import Login from './pages/login'
 import Register from './pages/register'
+import SearchFilter from './pages/SearchFilter'
 
 //2. Defination Area
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
                 <Route path="login" element={<Login />}></Route>
                 <Route path="register" element={<Register />}></Route>
                 <Route path="detail" element={<Detail />}></Route>
+                <Route path='search' element={<SearchFilter />}></Route>
                 {
                   window.localStorage.getItem('jwt_token') !== null &&
                   <Route path="business_register" element={<BusinessRegister />}></Route>

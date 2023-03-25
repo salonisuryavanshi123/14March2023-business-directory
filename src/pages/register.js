@@ -39,6 +39,7 @@ export default function Register() {
             }else{
                 swal("Good job!", "User Created Sucessfully!", "success");
             }
+            setPayload('');
             
         })
         .catch(err=>err);
