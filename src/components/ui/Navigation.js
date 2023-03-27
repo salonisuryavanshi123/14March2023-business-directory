@@ -7,7 +7,7 @@ import { GOOGLE_MAP_KEY, URL } from '../helpers/helper';
 export default function Navigation() {
     //2.1 Hook Area
     const [image,setImage] = useState('');
-    const [address,setAddress] = useState('');
+    const [address,setAddress] = useState(''); 
     
 
     useEffect(()=>{
