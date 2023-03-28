@@ -33,6 +33,7 @@ export default function Login() {
 
                 //Store the token in LocalStorage
                 window.localStorage.setItem('jwt_token',data["jwt"])
+                window.localStorage.setItem('user_id',data["user"].id)
             }else{
                 alert('Get Out');
             }

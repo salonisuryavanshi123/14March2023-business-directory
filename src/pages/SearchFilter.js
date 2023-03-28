@@ -35,7 +35,7 @@ export default function SearchFilter() {
                 <h1>Search Filter</h1>
                 {
                     businesses.map((cv,idx,arr)=>{
-                        return  <Link key={idx} to={'/detail?restaurant_id='+cv.id}>
+                        return  <Link key={idx} to={'/detail?business_id='+cv.id}>
                                     <Card  className='p-3 mb-3'>
                                         <Row>
                                             <Col sm={4}>
