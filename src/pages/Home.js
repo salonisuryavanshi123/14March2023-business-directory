@@ -16,10 +16,11 @@ export default function Home() {
                 return res.json()
             })
             .then((data) => {
-                console.log(data)
-                setBusinessCategory(data.data);
+                console.log('restaurant---->>',data[0].attributes.name)
+                setBusinessCategory(data[0].attributes.name);
             })
-            .catch(() => {
+            .catch((err) => {
+                return err;
 
             });
     }, []);
@@ -32,10 +33,10 @@ export default function Home() {
             <h1>Home Page</h1>
             <ul className="nav">
                 {
-                    businessCategory.map((cv, idx, arr) => {
+                    businessCategory && businessCategory.map((cv, idx, arr) => {
                         return <li key={idx} className='me-3 list-style'>
                                     <Link to={"/search?cat_name="+cv.attributes.name} className='me-3 list-style'>
-                                        <img className='img-style' src={'http://localhost:1337' + cv.attributes.Logo.data[0].attributes.url} /><br />
+                                        <img className='img-style' src={`${URL}` + cv.attributes.image.data.attributes.url} /><br />
                                         {cv.attributes.name}
                                     </Link>
                                 </li>

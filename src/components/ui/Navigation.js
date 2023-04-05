@@ -35,11 +35,11 @@ export default function Navigation() {
 
         //var latlng = new google.maps.LatLng(lat, lng);
         //console.log('latlng --->',latlng);
-        fetch(`${URL}/api/website?populate=*`,{})
+        fetch(`${URL}/api/website?populate=*`)
         .then(res=>res.json())
         .then((data)=>{
-            console.log('Image ----->',data.data.attributes.image.data.attributes.url);
-            setImage(data.data.attributes.image.data.attributes.url);
+            console.log('Image ----->',data.data.attributes.logo.data.attributes.url);
+            setImage(data.data.attributes.logo.data.attributes.url);
         })
         .catch(err=>err);
     },[]);
