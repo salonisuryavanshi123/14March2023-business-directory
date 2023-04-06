@@ -11,13 +11,13 @@ export default function Home() {
 
 
     useEffect(() => {
-        fetch(`${URL}/api/business-categories?populate=*`)
-            .then((res) => {
-                return res.json()
+        fetch(`${URL}/api/business-categories?populate=*`,{})
+            .then((response) => {
+                return response.json()
             })
-            .then((data) => {
-                console.log('restaurant---->>',data[0].attributes.name)
-                setBusinessCategory(data[0].attributes.name);
+            .then((res) => {
+                console.log('restaurant---->>',res.data[0].attributes.name)
+                setBusinessCategory(res.data);
             })
             .catch((err) => {
                 return err;
