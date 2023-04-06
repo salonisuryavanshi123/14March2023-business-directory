@@ -39,7 +39,8 @@ export default function SearchFilter() {
                                     <Card  className='p-3 mb-3'>
                                         <Row>
                                             <Col sm={4}>
-                                                <Card.Img className='img-fluid' variant="top" src={ (cv.attributes.photo.data !==null) ?URL+cv.attributes.photo.data[0].attributes.url :img} />
+                                                {console.log('data--->>>',cv.attributes.image.data[0].attributes.url)}
+                                                <Card.Img className='img-fluid' variant="top" src={ (cv.attributes.image.data[0] !==null) ?URL+cv.attributes.image.data[0].attributes.url :img} />
                                             </Col>
                                             <Col sm={8}>
                                                 <Card.Body>
